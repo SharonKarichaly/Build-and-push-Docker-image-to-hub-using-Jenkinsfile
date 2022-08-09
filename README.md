@@ -76,6 +76,11 @@ post {
         }
     }
 ```
+Note: To execute the job in a specific Jenkins slave, Instead of adding "agent any" in the jenkinsfile we can add like below. Here linuxslave is the label of slave machine i configured. 
+```
+pipeline {
+    agent {label "linuxslave"}
+```
 
 # Build the pipeline and confirm the image is pushed into Docker Hub.
 
