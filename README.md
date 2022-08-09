@@ -1,5 +1,5 @@
 
-How to build and push a docker image to dockerhub using Jenkinsfile
+How to build and push a docker image to Docker Hub using Jenkinsfile
 
 # FlowDiagram
 
@@ -9,24 +9,24 @@ How to build and push a docker image to dockerhub using Jenkinsfile
 
 Here I containerised a python application first, Then save the source code and the Dockerfile into GitHub. Using Jenkins we will checkout the code from GitHub. Then create the docker image using the Dockerfile into the Jenkins node. Once the image is ready we will push it to the docker hub. 
 
-Currently I am pushing this image into my private repository, In production environment we can push images to our organisation project repository and other developers can pull and use the image and work collabaretively.
+Currently, I am pushing this image into my private repository, In the production environment we can push images to our organisation project repository and other developers can pull and use the image and work collaboratively.
 
 # Prerequisites:
 1. Install the Docker Pipelines plugin on Jenkins
-2. Create secret token from Docker Hub and Setup the Jenkins Credential for dockerhub account
+2. Create a secret token from Docker Hub and Setup the Jenkins Credential for the Docker Hub account
 3. Docker to be installed on the Jenkins node where we are building the image.
-4. jenkins user should be added to the docker group #sudo usermod -a -G docker jenkins
+4. Jenkins user should be added to the docker group #sudo usermod -a -G docker jenkins
 
 # Creation of Jenkinsfile
 
-1. Set environment variable in Jenkins Pipeline.where dockerhub-sharon is the id used when defining the Docker Hub credentials in Jenkins.
+1. Set environment variable in Jenkins Pipeline. Here dockerhub-sharon is the id used when defining the Docker Hub credentials in Jenkins.
 
 ```
 environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub-sharon')
     }
 ```
-3. Checkout latest code from Github
+2. Checkout latest code from Github
 
 ```
 stages { 
@@ -37,7 +37,7 @@ stages {
         }
 ```
 
-5. Build docker image using Dockerfile
+3. Build docker image using Dockerfile
 
 ```
         stage('Build docker image') {
@@ -47,7 +47,7 @@ stages {
         }
 ```
 
-7. Logging in to Docker Hub
+4. Logging in to Docker Hub
 
 
 ```
@@ -58,7 +58,7 @@ stages {
         }
 ```
 
-9. Push Image to Docker Hub
+5. Push Image to Docker Hub
 
 ```
         stage('push image') {
@@ -68,7 +68,7 @@ stages {
         }
 ```
 
-11. Logout from Docker Hub
+6. Logout from Docker Hub
 ```
 post {
         always {
@@ -76,6 +76,16 @@ post {
         }
     }
 ```
+
+# Build the pipeline and confirm the image is pushed into Docker Hub.
+
+<img width="931" alt="Screenshot 2022-08-09 at 5 07 53 PM" src="https://user-images.githubusercontent.com/106381638/183638613-1cc8f1bb-9772-4ad8-bfe3-a3238bc5f1f9.png">
+
+
+
+<img width="950" alt="Screenshot 2022-08-09 at 5 11 03 PM" src="https://user-images.githubusercontent.com/106381638/183638632-37ee1a90-c914-429d-91fc-859dfb8bd53c.png">
+
+
 
 
 
