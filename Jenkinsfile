@@ -22,7 +22,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh sh 'docker push ksharon/python:latest'
+                sh 'docker push ksharon/python:latest'
             }
         }
 }
